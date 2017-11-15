@@ -12,7 +12,7 @@ use GuzzleHttp\Psr7\Request;
 
 class OpenProject {
 
-    protected $baseUrl = 'http://127.0.0.1:5000';
+    protected $baseUrl;
    
    /**
      * @var string
@@ -34,6 +34,10 @@ class OpenProject {
         if (isset($config['apiKey'])) {
             $this->apiKey = $config['apiKey'];
         }
+        
+        if (isset($config['baseUrl'])) {
+            $this->baseUrl = $config['baseUrl'];
+        }
     }
     
     /**
@@ -43,6 +47,13 @@ class OpenProject {
         return $this->apiKey;
     }
     
+    /**
+     * @return string
+     */
+    public function get_baseUrl() {
+        return $this->baseUrl;
+    }
+    
     
     /**
      * @return \GuzzleHttp\Client
@@ -50,7 +61,7 @@ class OpenProject {
     public function get_httpClient() {
         if (!$this->httpClient) {
             $this->httpClient = new Client(array(
-                'base_uri' => $this->baseUrl,
+                'base_uri' => $this->get_baseUrl(),
                 'headers' => array(
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->get_apiKey()),
