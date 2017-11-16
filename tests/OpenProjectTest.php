@@ -50,7 +50,7 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
 //        $this->assertTrue($var->projects()->create($params)->count == 1);
 //	unset($var);
 //  }
-//  
+  
     /**
    * create task
    *
@@ -63,9 +63,10 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
                     'baseUrl'=>'https://briqsdata.openproject.com'
                     //'baseUrl'=>'http://127.0.0.1:5000'
                 ));
-        $project_id = 1;
-        $data['name'] = 'Create PSD';
-        $data['description'] = 'Task Description';
+        $project_id = 2;
+        $data['name'] = 'New Task';
+        $data['description'] = 'A *simple* paragraph with
+                                    test';
 
         $this->assertTrue(is_object($var->tasks()->create($project_id, $data)));
         unset($var);
@@ -84,7 +85,8 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
                     //'baseUrl'=>'http://127.0.0.1:5000'
                 ));
         $task_id = 2;
-        $data['description'] = 'Updated Task Description';
+        $data['description'] = 'Update Task Description A *simple* paragraph with
+                                    test';
         $this->assertTrue(is_object($var->tasks()->update($task_id, $data)));
         unset($var);
     }
