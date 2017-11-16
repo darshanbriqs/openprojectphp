@@ -97,6 +97,7 @@ class OpenProject {
                 break;
             case 'post' :
             case 'put' :
+            case 'patch' :
                 if (!empty($data)) {
                     $json = array();
                     foreach ($data as $key => $value) {
@@ -132,5 +133,12 @@ class OpenProject {
      */
     public function projects() {
         return $this->get_api('ProjectService');
+    }
+    
+    /**
+     * @return TaskService
+     */
+    public function tasks() {
+        return $this->get_api('TaskService');
     }
 }

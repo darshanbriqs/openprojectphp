@@ -11,7 +11,7 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
   *  openoproject object
   */
   public function testIsThereAnySyntaxError(){
-	$var = new OpenprojectAPI\OpenProject(array('apiKey'=>'apikey:3188e8aceba05379c4db2c046edb4086db0ad6c5b2c280af18e1be29425d157d'));
+	$var = new OpenprojectAPI\OpenProject(array('apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e'));
 	$this->assertTrue(is_object($var));
 	unset($var);
   }
@@ -21,8 +21,15 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
   *
   */
   public function testListProjectApiCall(){
-	$var = new OpenprojectAPI\OpenProject(array('apiKey'=>'apikey:a67868156ffea6cff291d97f0dc41f595b9759e5bf5ad3a2f4fda4c6f0b75105'));
-        $this->assertTrue($var->projects()->all()->count == 4);
+	$var = new OpenprojectAPI\OpenProject(
+                array(
+                    'apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e',
+                    //'apiKey'=>'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0',
+                    'baseUrl'=>'https://briqsdata.openproject.com'
+                    //'baseUrl'=>'http://127.0.0.1:5000'
+                ));
+        
+        $this->assertTrue(is_object($var->projects()->all()));
 	unset($var);
   }
   
@@ -31,15 +38,73 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
   *
   */
 //  public function testCreateProjectApiCall(){
-//	$var = new OpenprojectAPI\OpenProject(array('apiKey'=>'apikey:a67868156ffea6cff291d97f0dc41f595b9759e5bf5ad3a2f4fda4c6f0b75105'));
-//        $params = array(
-//            "lockVersion" => 5,
-//            "_type" => "Project",
-//            "name" => "An example title"
-//        );
+//	$var = new OpenprojectAPI\OpenProject(
+//                array(
+//                    'apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e',
+//                    'baseUrl'=>'https://briqsdata.openproject.com'
+//                ));
+//        $params['project']['name'] = 'testproject';
+//        $params['project']['identifier'] = 'testproject'; 
+//        $params['project']['is_public'] = 0;
 //        print_r($var->projects()->create($params));exit;
 //        $this->assertTrue($var->projects()->create($params)->count == 1);
 //	unset($var);
 //  }
+//  
+    /**
+   * create task
+   *
+   */
+    public function testCreateTaskApiCall(){
+        $var = new OpenprojectAPI\OpenProject(
+                array(
+                    'apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e',
+                    //'apiKey'=>'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0',
+                    'baseUrl'=>'https://briqsdata.openproject.com'
+                    //'baseUrl'=>'http://127.0.0.1:5000'
+                ));
+        $project_id = 1;
+        $data['name'] = 'Create PSD';
+        $data['description'] = 'Task Description';
+
+        $this->assertTrue(is_object($var->tasks()->create($project_id, $data)));
+        unset($var);
+    }
+    
+   /**
+   * update task
+   *
+   */
+    public function testUpdateTaskApiCall(){
+        $var = new OpenprojectAPI\OpenProject(
+                array(
+                    'apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e',
+                    //'apiKey'=>'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0',
+                    'baseUrl'=>'https://briqsdata.openproject.com'
+                    //'baseUrl'=>'http://127.0.0.1:5000'
+                ));
+        $task_id = 2;
+        $data['description'] = 'Updated Task Description';
+        $this->assertTrue(is_object($var->tasks()->update($task_id, $data)));
+        unset($var);
+    }
+    
+    /**
+  * list tasks
+  *
+  */
+  public function testListTaskApiCall(){
+	$var = new OpenprojectAPI\OpenProject(
+                array(
+                    'apiKey'=>'apikey:a6e9bd6020f65c89af2191861daeff2bbf5a1d6e',
+                    //'apiKey'=>'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0',
+                    'baseUrl'=>'https://briqsdata.openproject.com'
+                    //'baseUrl'=>'http://127.0.0.1:5000'
+                ));
+        $project_id = 2;
+        $this->assertTrue(is_object($var->tasks()->all($project_id)));
+	unset($var);
+  }
+  
   
 }

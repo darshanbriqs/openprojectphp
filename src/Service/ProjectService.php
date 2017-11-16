@@ -18,7 +18,7 @@ class ProjectService extends AbstractService
     *  Create Project  
     */
     public function create( $options = array() ) {
-        return $this->client->request( '/api/v3/projects/form', 'post', $options );
+        return $this->client->request( '/api/v3/projects', 'post', $options );
     }
     
     public function projectInList($project_id, $list_id) {
