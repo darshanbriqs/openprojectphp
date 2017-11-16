@@ -24,7 +24,7 @@ class TaskService extends AbstractService
     public function create($project_id , $data = array() ) {
         $options = array();
         $options['subject'] = $data['name'];
-        $options['description'] = array('format'=>'textile','raw'=>$data['description']);
+        $options['description'] = array('format'=>'textile','html'=>$data['description']);
         $options['_links'] =  array(
           "type" => array("href"=>"/api/v3/types/1")
         );
