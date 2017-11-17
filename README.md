@@ -21,13 +21,14 @@ openprojectphp is a library to help us access <a href="http://docs.openproject.o
 
 ## How to Use?
 ```sh
+(URL of your openproject application)
 $baseUrl = 'https://briqsdata.openproject.com';
 ```
-(URL of openproject application)
+
 ```sh
+(Generate apiKey from openproject application account)
 $apiKey = 'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0';
 ```
-(Generate apiKey from openproject application account)
 
 // Example of List all projects
 ```sh
