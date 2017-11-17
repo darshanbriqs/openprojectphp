@@ -6,16 +6,19 @@ class TaskService extends AbstractService
 {
     /**
      * Returns all tasks
-     *
-     * @param int $page
-     *
-     * @return \stdClass
      */
     public function all($project_id, $data = array()) {
         $options = array();
         $options['type_id']['operator'] = '=';
         $options['type_id']['values'] = 1;
         return $this->client->request( '/api/v3/projects/'.$project_id.'/work_packages', 'get', $options );   
+    }
+    
+    /**
+    *  Returns one task  
+    */
+    public function one( $task_id, $options = array() ) {
+        return $this->client->request( '/api/v3/work_packages/'.$task_id.'', 'get', $options );   
     }
     
     /**
@@ -31,16 +34,11 @@ class TaskService extends AbstractService
         return $this->client->request( '/api/v3/projects/'.$project_id.'/work_packages', 'post', $options );
     }
     
-    
-    public function gettask( $task_id, $options = array() ) {
-        return $this->client->request( '/api/v3/work_packages/'.$task_id.'', 'get', $options );   
-    }
-    
     /**
     *  Update task  
     */
     public function update($task_id , $data = array() ) {
-        $taskInfo = $this->gettask($task_id);
+        $taskInfo = $this->one($task_id);
         $options['lockVersion'] = $taskInfo->lockVersion;
         
         if(isset($data['name'])) {

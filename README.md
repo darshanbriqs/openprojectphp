@@ -7,7 +7,7 @@ openprojectphp is a library to help us access <a href="http://docs.openproject.o
 "repositories": [
     {
         "type": "vcs",
-        "url": "https://github.com/jsalcedo09/aws-swf-laravel"
+        "url": "https://github.com/darshanbriqs/openprojectphp"
     }
 ]
 ```
@@ -15,6 +15,28 @@ openprojectphp is a library to help us access <a href="http://docs.openproject.o
 2. Add as dependency in require block
 ```sh
 "require": {
-    "jsalcedo09/aws-swf-laravel": "dev-master"
+    "darshanbriqs/openprojectphp": "dev-master"
 }
 ```
+
+## How to Use?
+$baseUrl = 'https://briqsdata.openproject.com';
+(URL of openproject application)
+$apiKey = 'apikey:3fed729f01124d971c98674e96a7921b30821c10ef4dcac2bf0b18b4d3d315d0';
+(Generate apiKey from openproject application account)
+
+// Example of List all projects
+$opObj = new OpenprojectAPI\OpenProject(['baseUrl' => $baseUrl, 'apiKey' => $apiKey]);
+$opObj->projects()->all();
+
+// Example of Create task
+$opObj = new OpenprojectAPI\OpenProject(['baseUrl' => $baseUrl, 'apiKey' => $apiKey]);
+$data['name'] = 'Task Name';
+$data['description'] = 'Task Description';
+$opObj->tasks()->create($project_id, $data);
+
+## You can use below methods to perform various operations:
+all - list all resources
+one - list one resource
+create - create resource
+update - update resource
