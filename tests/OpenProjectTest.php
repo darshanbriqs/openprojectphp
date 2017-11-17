@@ -65,8 +65,7 @@ class OpenProjectTest extends PHPUnit_Framework_TestCase{
                 ));
         $project_id = 2;
         $data['name'] = 'New Task';
-        $data['description'] = 'A *simple* paragraph with
-                                    test';
+        $data['description'] = 'A *simple* paragraph with\n test';
 
         $this->assertTrue(is_object($var->tasks()->create($project_id, $data)));
         unset($var);
