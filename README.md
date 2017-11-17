@@ -43,7 +43,9 @@ $data['description'] = 'Task Description';
 $opObj->tasks()->create($project_id, $data);
 ```
 ## Use below methods to perform various operations:
+```
  all - list all resources
  one - list one resource
  create - create resource
  update - update resource
+```
