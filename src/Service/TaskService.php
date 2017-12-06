@@ -24,12 +24,12 @@ class TaskService extends AbstractService
     /**
     *  Create task  
     */
-    public function create($project_id , $data = array() ) {
+    public function create($project_id , $type, $data = array() ) {
         $options = array();
         $options['subject'] = $data['name'];
         $options['description'] = array('format'=>'textile','raw'=>$data['description']);
         $options['_links'] =  array(
-          "type" => array("href"=>"/api/v3/types/1")
+          "type" => array("href"=>"/api/v3/types/".$type)
         );
         return $this->client->request( 'api/v3/projects/'.$project_id.'/work_packages', 'post', $options );
     }
