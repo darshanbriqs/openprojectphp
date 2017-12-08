@@ -32,5 +32,13 @@ class ProjectService extends AbstractService
         return $this->client->request('api/v3/projects/' . $project_id . '/add_members', 'post', $options);
     }
     
+    /**
+    *  Create sub project
+    */
+    public function setparent($project_id, $options = array()) { 
+        return $this->client->request('api/v3/projects/' . $project_id . '/set_parent', 'post', $options); 
+        
+    }
+    
    
 }
