@@ -1,64 +1,67 @@
-<?php 
+<?php
 
 namespace OpenprojectAPI;
 
 /**
-*  OpenProject API
-*
-*  @author darshan
-*/
+ *  OpenProject API
+ *
+ *  @author darshan
+ */
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
-class OpenProject {
+class OpenProject
+{
 
     protected $baseUrl;
-   
-   /**
+
+    /**
      * @var string
      */
     protected $apiKey;
-    
+
     /**
      * @var \GuzzleHttp\Client
      */
     protected $httpClient;
-    
+
     /**
      * @var array
      */
     protected $apis = array();
-    
-    
-    public function __construct($config = array()) {
+
+    public function __construct($config = array())
+    {
         if (isset($config['apiKey'])) {
             $this->apiKey = $config['apiKey'];
         }
-        
+
         if (isset($config['baseUrl'])) {
             $this->baseUrl = $config['baseUrl'];
         }
     }
-    
+
     /**
      * @return string
      */
-    public function get_apiKey() {
+    public function get_apiKey()
+    {
         return $this->apiKey;
     }
-    
+
     /**
      * @return string
      */
-    public function get_baseUrl() {
+    public function get_baseUrl()
+    {
         return $this->baseUrl;
     }
-    
-    
+
     /**
      * @return \GuzzleHttp\Client
      */
-    public function get_httpClient() {
+    public function get_httpClient()
+    {
         if (!$this->httpClient) {
             $this->httpClient = new Client(array(
                 'base_uri' => $this->get_baseUrl(),
@@ -66,13 +69,13 @@ class OpenProject {
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->get_apiKey()),
                 ),
-                    ));
+            ));
         }
         return $this->httpClient;
     }
-    
-    
-    public function get_api($class) {
+
+    public function get_api($class)
+    {
         $fq_class = '\\OpenprojectAPI\\Service\\' . $class;
         if (!class_exists($fq_class)) {
             throw new ServiceNotFoundException('Service: ' . $class . ' could not be found');
@@ -82,11 +85,12 @@ class OpenProject {
         }
         return $this->apis[$fq_class];
     }
-    
-    public function request($path = '', $method = 'get', $data = array()) {
+
+    public function request($path = '', $method = 'get', $data = array())
+    {
         $options = array();
         switch ($method) {
-            case 'get' :
+            case 'get':
                 if (!empty($data)) {
                     $query = array();
                     foreach ($data as $key => $value) {
@@ -95,9 +99,9 @@ class OpenProject {
                     $options['filters'] = $query;
                 }
                 break;
-            case 'post' :
-            case 'put' :
-            case 'patch' :
+            case 'post':
+            case 'put':
+            case 'patch':
                 if (!empty($data)) {
                     $json = array();
                     foreach ($data as $key => $value) {
@@ -117,7 +121,7 @@ class OpenProject {
                 $handler = new ValidationExceptionHandler($body);
                 $handler->handle();
             } else if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 401) {
-                
+
             } else if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 409) {
                 return 'uniqueValidationError';
             }
@@ -126,19 +130,33 @@ class OpenProject {
         }
         return false;
     }
-    
-    
+
+    public function requestMultipart($path = "", $data = array())
+    {
+        $httpClient = new Client(array(
+            'base_uri' => $this->get_baseUrl(),
+            'headers' => array(
+                'Authorization' => 'Basic ' . base64_encode($this->get_apiKey()),
+            ),
+        ));
+
+        $response = $httpClient->request("POST", $path, $data);
+        return json_decode($response->getBody());
+    }
+
     /**
      * @return ProjectService
      */
-    public function projects() {
+    public function projects()
+    {
         return $this->get_api('ProjectService');
     }
-    
+
     /**
      * @return TaskService
      */
-    public function tasks() {
+    public function tasks()
+    {
         return $this->get_api('TaskService');
     }
 }
