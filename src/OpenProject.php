@@ -139,9 +139,13 @@ class OpenProject
                 'Authorization' => 'Basic ' . base64_encode($this->get_apiKey()),
             ),
         ));
-
-        $response = $httpClient->request("POST", $path, $data);
-        return json_decode($response->getBody());
+        try {
+            $response = $httpClient->request("POST", $path, $data);
+            return json_decode($response->getBody());
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+        
     }
 
     /**
