@@ -53,6 +53,10 @@ class TaskService extends AbstractService
             $options['description'] = array('format' => 'textile', 'raw' => $data['description']);
         }
 
+        if(isset($data['_links'])){
+            $options['_links'] = $data['_links']; 
+        }
+
         return $this->client->request('api/v3/work_packages/' . $task_id . '', 'patch', $options);
     }
 
@@ -64,5 +68,24 @@ class TaskService extends AbstractService
     public function addComment($task_id, $data = array())
     {
         return $this->client->request('api/v3/work_packages/' . $task_id . '/activities?notify=true', 'post', $data);
+    }
+
+    public function getStatus($name = null)
+    {
+        if ($name) {
+            $status = $this->client->request('/api/v3/statuses', 'get');
+            if (isset($status->_embedded->elements)) {
+                foreach ($status->_embedded->elements as $elemnt) {
+                    if($elemnt->name == $name){
+                        return $elemnt;
+                    }
+                }
+                return false;
+            }
+            return false;
+        } else {
+            return $this->client->request('/api/v3/statuses', 'get');
+        }
+
     }
 }
