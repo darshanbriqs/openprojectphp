@@ -61,8 +61,8 @@ class TaskService extends AbstractService
         return $this->client->requestMultipart('api/v3/work_packages/' . $task_id . '/attachments', $data);
     }
 
-    public function addComment($task_id, $data)
+    public function addComment($task_id, $data = array())
     {
-        return $this->client->request('api/v3/work_packages/' . $task_id . '/activities?notify=true', 'post', $options);
+        return $this->client->request('api/v3/work_packages/' . $task_id . '/activities?notify=true', 'post', $data);
     }
 }
