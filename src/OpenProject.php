@@ -143,11 +143,11 @@ class OpenProject
             $response = $httpClient->request("POST", $path, $data);
             return json_decode($response->getBody());
         } catch (\Exception $e) {
-            $error['error'] = TRUE;
+            $error['error'] = true;
             $error['message'] = $e->getMessage();
-            return $error;
+            return json_decode(json_encode($error));
         }
-        
+
     }
 
     /**
