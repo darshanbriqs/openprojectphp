@@ -73,7 +73,7 @@ class TaskService extends AbstractService
     public function getStatus($name = null)
     {
         if ($name) {
-            $status = $this->client->request('/api/v3/statuses', 'get');
+            $status = $this->client->request('api/v3/statuses', 'get');
             if (isset($status->_embedded->elements)) {
                 foreach ($status->_embedded->elements as $elemnt) {
                     if($elemnt->name == $name){
@@ -84,7 +84,7 @@ class TaskService extends AbstractService
             }
             return false;
         } else {
-            return $this->client->request('/api/v3/statuses', 'get');
+            return $this->client->request('api/v3/statuses', 'get');
         }
 
     }
