@@ -91,13 +91,18 @@ class OpenProject
         $options = array();
         switch ($method) {
             case 'get':
-                if (!empty($data)) {
+                if (!empty($data) && is_array($data)) {
                     $query = array();
                     foreach ($data as $key => $value) {
                         $query[$key] = $value;
                     }
                     $options['filters'] = $query;
                 }
+                
+                if (!empty($data) && is_string($data)) {
+                    $options['query'] = ["filters"=>$data] ;
+                }
+                
                 break;
             case 'post':
             case 'put':
