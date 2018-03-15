@@ -141,4 +141,11 @@ class OpenProject {
     public function tasks() {
         return $this->get_api('TaskService');
     }
+    
+    /**
+    * @return UserService
+    */
+    public function users() {
+        return $this->get_api('UserService');
+    }
 }
