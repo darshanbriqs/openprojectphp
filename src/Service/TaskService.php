@@ -31,6 +31,9 @@ class TaskService extends AbstractService
         $options = array();
         $options['subject'] = $data['name'];
         $options['description'] = array('format' => 'textile', 'raw' => $data['description']);
+        if(isset($data['estimatedTime'])){
+            $options['estimatedTime'] = $data['estimatedTime'];
+        }
         $options['_links'] = array(
             "type" => array("href" => "/api/v3/types/" . $type),
         );
