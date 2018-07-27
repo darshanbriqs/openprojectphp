@@ -15,7 +15,7 @@ class ProjectService extends AbstractService
     *  Returns one project  
     */
     public function one( $project_id, $options = array() ) {
-        return $this->client->request( 'api/v3/project/'.$project_id.'', 'get', $options );   
+        return $this->client->request( 'api/v3/projects/'.$project_id.'', 'get', $options );   
     }
     
     /**
