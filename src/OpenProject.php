@@ -177,4 +177,11 @@ class OpenProject
     public function users() {
         return $this->get_api('UserService');
     }
+
+    /**
+    * @return TypeService
+    */
+    public function types() {
+        return $this->get_api('TypeService');
+    }
 }
