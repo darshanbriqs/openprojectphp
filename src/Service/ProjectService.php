@@ -39,6 +39,13 @@ class ProjectService extends AbstractService
         return $this->client->request('api/v3/projects/' . $project_id . '/set_parent', 'post', $options); 
         
     }
-    
+
+    /**
+     *  Update project
+     */
+    public function update($project_id, $options = array())
+    {
+        return $this->client->request('api/v3/projects/' . $project_id, 'patch', $options);
+    }
    
 }
