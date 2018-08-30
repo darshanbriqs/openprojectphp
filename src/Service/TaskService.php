@@ -34,9 +34,21 @@ class TaskService extends AbstractService
         if(isset($data['estimatedTime'])){
             $options['estimatedTime'] = $data['estimatedTime'];
         }
-        $options['_links'] = array(
-            "type" => array("href" => "/api/v3/types/" . $type),
-        );
+        if(isset($data['dueDate'])){
+            $options['dueDate'] = $data['dueDate'];
+        }
+        if(isset($data['startDate'])){
+            $options['startDate'] = $data['startDate'];
+        }
+        if(isset($data['priority'])){
+            $options['_links']['priority'] = array("href" => "/api/v3/priorities/" . $data['priority']);
+        }
+        if(isset($data['status'])){
+            $options['_links']['status'] = array("href" => "/api/v3/statuses/" . $data['status']);
+        }
+
+        $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
+
         return $this->client->request('api/v3/projects/' . $project_id . '/work_packages', 'post', $options);
     }
 
