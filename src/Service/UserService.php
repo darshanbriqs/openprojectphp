@@ -31,4 +31,13 @@ class UserService extends AbstractService
     public function delete( $user_id, $options = array() ) {
         return $this->client->request( 'api/v3/users/'.$user_id.'', 'delete', $options );
     }
+
+    /**
+     *  Update User
+     */
+    public function update($user_id, $options = array())
+    {
+        return $this->client->request('api/v3/users/' . $user_id, 'patch', $options);
+    }
+   
 }
