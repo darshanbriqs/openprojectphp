@@ -103,4 +103,12 @@ class TaskService extends AbstractService
         }
 
     }
+
+    /**
+     *  Returns one comments of task
+     */
+    public function getComments($wp_id, $options = array())
+    {
+        return $this->client->request('api/v3/work_packages/' . $wp_id . '/activities', 'get', $options);
+    }
 }
