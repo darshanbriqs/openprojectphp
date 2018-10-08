@@ -31,6 +31,16 @@ class TaskService extends AbstractService
         $options = array();
         $options['subject'] = $data['name'];
         $options['description'] = array('format' => 'textile', 'raw' => $data['description']);
+        
+        if(isset($data['author'])){
+            $options['_links']['author'] = array("href" => "/api/v3/users/" . $data['author']);
+        }
+        if(isset($data['responsible'])){
+            $options['_links']['responsible'] = array("href" => "/api/v3/users/" . $data['responsible']);
+        }
+        if(isset($data['assignee'])){
+            $options['_links']['assignee'] = array("href" => "/api/v3/users/" . $data['assignee']);
+        }
         if(isset($data['estimatedTime'])){
             $options['estimatedTime'] = $data['estimatedTime'];
         }
@@ -105,7 +115,7 @@ class TaskService extends AbstractService
     }
 
     /**
-     *  Returns one comments of task
+     *  Returns all comments of task
      */
     public function getComments($wp_id, $options = array())
     {
