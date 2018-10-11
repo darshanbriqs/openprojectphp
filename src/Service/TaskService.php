@@ -56,6 +56,9 @@ class TaskService extends AbstractService
         if(isset($data['status'])){
             $options['_links']['status'] = array("href" => "/api/v3/statuses/" . $data['status']);
         }
+        if(isset($data['parent'])){
+            $options['_links']['parent'] = array("href" => "/api/v3/work_packages/" . $data['parent']);
+        }
 
         $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
 
