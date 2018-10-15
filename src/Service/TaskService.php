@@ -95,7 +95,14 @@ class TaskService extends AbstractService
 
     public function addComment($task_id, $data = array())
     {
-        return $this->client->request('api/v3/work_packages/' . $task_id . '/activities?notify=true', 'post', $data);
+        $options = array();
+        $options['comment'] = $data['comment'];
+        
+        if(isset($data['user'])){
+            $options['_links']['user'] = array("href" => "/api/v3/users/" . $data['user']);
+        }
+
+        return $this->client->request('api/v3/work_packages/' . $task_id . '/activities?notify=true', 'post', $options);
     }
 
     public function getStatus($name = null)
