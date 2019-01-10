@@ -184,4 +184,11 @@ class OpenProject
     public function types() {
         return $this->get_api('TypeService');
     }
+
+     /**
+    * @return CategoryService
+    */
+    public function categories() {
+        return $this->get_api('CategoryService');
+    }
 }
