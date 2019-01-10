@@ -60,6 +60,14 @@ class TaskService extends AbstractService
             $options['_links']['parent'] = array("href" => "/api/v3/work_packages/" . $data['parent']);
         }
 
+        if(isset($data['category'])){
+            $options['_links']['category'] = array("href" => "/api/v3/categories/" . $data['category']);
+        }
+
+        if(isset($data['customField2'])){
+            $options['customField2'] = $data['customField2'];
+        }
+
         $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
 
         return $this->client->request('api/v3/projects/' . $project_id . '/work_packages', 'post', $options);
