@@ -64,8 +64,8 @@ class TaskService extends AbstractService
             $options['_links']['category'] = array("href" => "/api/v3/categories/" . $data['category']);
         }
 
-        if(isset($data['customField2'])){
-            $options['customField2'] = $data['customField2'];
+        if(isset($data['type'])){
+            $options['_links']['customField2'] = array("href" => "/api/v3/custom_options/" . $data['type']);
         }
 
         $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
