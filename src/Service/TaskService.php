@@ -139,4 +139,11 @@ class TaskService extends AbstractService
     {
         return $this->client->request('api/v3/work_packages/' . $wp_id . '/activities', 'get', $options);
     }
+
+    /**
+    *  Delete Attachment  
+    */
+    public function deleteAttachment($attachment_id, $options = array()) {
+        return $this->client->request('api/v3/attachments/'.$attachment_id.'', 'delete', $options);
+    }
 }
