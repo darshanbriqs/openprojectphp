@@ -133,8 +133,6 @@ class TaskService extends AbstractService
             $options['_links']['customField2'] = array("href" => "/api/v3/custom_options/" . $data['type']);
         }
 
-        $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
-
         return $this->client->request('api/v3/work_packages/' . $task_id . '', 'patch', $options);
     }
 
