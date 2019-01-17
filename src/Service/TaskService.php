@@ -89,9 +89,51 @@ class TaskService extends AbstractService
             $options['description'] = array('format' => 'textile', 'raw' => $data['description']);
         }
 
-        if(isset($data['_links'])){
-            $options['_links'] = $data['_links']; 
+        if(isset($data['author'])){
+            $options['_links']['author'] = array("href" => "/api/v3/users/" . $data['author']);
         }
+
+        if(isset($data['responsible'])){
+            $options['_links']['responsible'] = array("href" => "/api/v3/users/" . $data['responsible']);
+        }
+
+        if(isset($data['assignee'])){
+            $options['_links']['assignee'] = array("href" => "/api/v3/users/" . $data['assignee']);
+        }
+
+        if(isset($data['estimatedTime'])){
+            $options['estimatedTime'] = $data['estimatedTime'];
+        }
+
+        if(isset($data['dueDate'])){
+            $options['dueDate'] = $data['dueDate'];
+        }
+
+        if(isset($data['startDate'])){
+            $options['startDate'] = $data['startDate'];
+        }
+
+        if(isset($data['priority'])){
+            $options['_links']['priority'] = array("href" => "/api/v3/priorities/" . $data['priority']);
+        }
+
+        if(isset($data['status'])){
+            $options['_links']['status'] = array("href" => "/api/v3/statuses/" . $data['status']);
+        }
+
+        if(isset($data['parent'])){
+            $options['_links']['parent'] = array("href" => "/api/v3/work_packages/" . $data['parent']);
+        }
+
+        if(isset($data['category'])){
+            $options['_links']['category'] = array("href" => "/api/v3/categories/" . $data['category']);
+        }
+
+        if(isset($data['type'])){
+            $options['_links']['customField2'] = array("href" => "/api/v3/custom_options/" . $data['type']);
+        }
+
+        $options['_links']['type'] = array("href" => "/api/v3/types/" . $type);
 
         return $this->client->request('api/v3/work_packages/' . $task_id . '', 'patch', $options);
     }
