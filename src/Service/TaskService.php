@@ -79,6 +79,7 @@ class TaskService extends AbstractService
     public function update($task_id, $data = array())
     {
         $taskInfo = $this->one($task_id);
+        
         $options['lockVersion'] = $taskInfo->lockVersion;
 
         if (isset($data['name'])) {
